@@ -1,4 +1,3 @@
-import React from 'react';
 import picture from '../assets/blob.jpeg';
 
 type Props = {};

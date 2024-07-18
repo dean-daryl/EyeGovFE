@@ -1,4 +1,3 @@
-import React from 'react';
 import NavBar from '../components/NavBar';
 import FeaturedComponent from '../components/FeaturedComponent';
 import MiniBlog from '../components/MiniBlog';
