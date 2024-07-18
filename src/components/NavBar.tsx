@@ -7,7 +7,7 @@ function NavBar({}: Props) {
   return (
     <nav className="navbar flex items-center justify-between px-[250px] py-[30px] border">
       <div className="search-bar">
-        <SearchBar onSearch={(query: string) => {}} />
+        <SearchBar />
       </div>
       <div className="logo font-[1000] text-2xl px-[50px]">
         <h2>EYEGOV</h2>

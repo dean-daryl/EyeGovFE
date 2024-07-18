@@ -1,27 +1,13 @@
-import React, { useState } from 'react';
 import search from '../assets/search.svg';
 
-interface SearchBarProps {
-  onSearch: (query: string) => void;
-}
+type Props = {};
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [query, setQuery] = useState('');
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
-  const handleSearch = () => {
-    onSearch(query);
-  };
+function SearchBar({}: Props){
 
   return (
     <div className="flex items-center">
       <input
         type="text"
-        value={query}
-        onChange={handleInputChange}
         placeholder="Search..."
         className="px-4 py-2 border border-gray-300 rounded-md pl-8 focus:outline-none"
       />
