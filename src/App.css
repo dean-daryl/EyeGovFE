@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'inter';
+  src: url(..\src\assets\inter-latin-wght-normal.BgVq2Tq4.woff2) format('woff2');
+}
+body {
+  font-family: 'inter';
+}
+
+.trending {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+}
+.categoryName {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+}
