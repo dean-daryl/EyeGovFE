@@ -11,4 +11,13 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      external: [
+        'froala-editor/css/froala_style.min.css',
+        'froala-editor/css/froala_editor.pkgd.min.css',
+        'froala-editor/js/plugins.pkgd.min.js',
+      ],
+    },
+  },
 });

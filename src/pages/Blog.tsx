@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import NavBar from '../components/NavBar';
 import blob from '../assets/blob.jpeg';
 import dean from '../assets/dean.jpg';
@@ -7,7 +6,7 @@ import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 type Props = {};
 
 export default function Blog({}: Props) {
-  const [model, setModel] = useState(`
+  const modal = `
    <p style="text-align: left;">In a season filled with surprises, the underdog team, the Mavericks, has taken the basketball world by storm. Their latest game against the reigning champions, the Titans, showcased a level of skill and determination that left fans and critics in awe</p>
 
 <p style="text-align: left;">
@@ -34,7 +33,7 @@ export default function Blog({}: Props) {
 
 <p>
 	<br>As the season progresses, the Mavericks&#39; remarkable journey continues to inspire basketball enthusiasts everywhere. Their story is a testament to the power of perseverance and teamwork.</p>
-`);
+`;
 
   return (
     <div>
@@ -63,7 +62,7 @@ export default function Blog({}: Props) {
             <img src={blob} alt="Article" className="w-[696px] h-[447px]" />
           </div>
           <div className="w-[65%] mt-10 text-gray-600 text-lg">
-            <FroalaEditorView model={model} />
+            <FroalaEditorView model={modal} />
           </div>
         </div>
       </div>

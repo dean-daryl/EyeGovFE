@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import EditorComponent from '../components/EditorComponent';
 import SideBar from '../components/SideBar';
 import close from '../assets/close.svg';
-import info from '../assets/info.svg';
 
 type Props = {};
 
