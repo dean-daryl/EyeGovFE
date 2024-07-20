@@ -1,22 +1,11 @@
-import { useState } from 'react';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-
+import React from 'react';
+import FroalaEditorComponent from 'react-froala-wysiwyg';
 type Props = {};
 
 function RichTextEditor({}: Props) {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty(),
-  );
   return (
     <div>
-      <Editor
-        editorState={editorState}
-        onEditorStateChange={setEditorState}
-        wrapperClassName="wrapper-class"
-        editorClassName="editor-class"
-        toolbarClassName="toolbar-class"
-      />
+      <FroalaEditorComponent tag="textarea" />
     </div>
   );
 }

@@ -1,7 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  css: {
+    preprocessorOptions: {
+      css: {
+        additionalData:
+          '@import "froala-editor/css/froala_style.min.css"; @import "froala-editor/css/froala_editor.pkgd.min.css";',
+      },
+    },
+  },
+});
