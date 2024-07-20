@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import SocialMediaComponents from './SocialMediaComponents';
 
@@ -9,8 +10,11 @@ function NavBar({}: Props) {
       <div className="search-bar">
         <SearchBar />
       </div>
-      <div className="logo font-[1000] text-2xl px-[50px]">
-        <h2>EYEGOV</h2>
+      <div className="logo font-[1000] text-2xl px-[40px] z-50">
+        <Link to={'/'}>
+          {' '}
+          <h2>EYEGOV</h2>
+        </Link>
       </div>
       <div className="social-icons">
         <SocialMediaComponents />

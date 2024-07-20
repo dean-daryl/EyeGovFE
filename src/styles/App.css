@@ -82,3 +82,29 @@ svg {
 .toolbar-class {
   border: 1px solid #ccc;
 }
+.info {
+  width: fit-content;
+  height: 30px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px -3px #111;
+}
+
+
+.info__title {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.info__close {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left:5px;
+}
+
+.info__close path {
+  fill: #fff;
+}

@@ -9,17 +9,22 @@ import orange from '../assets/orange.svg';
 import yellow from '../assets/yellow.svg';
 import settings from '../assets/settings.svg';
 import logout from '../assets/logout.svg';
+import close from '../assets/close.svg';
+import { Link } from 'react-router-dom';
 const SideBar: React.FC = () => {
   return (
     <>
       <div>
-        <div className="sticky top-0 py-4 flex items-center justify-between  bg-slate-50 w-[240px]">
+        <div className="sticky top-0 py-4  flex items-center justify-between  bg-slate-50 w-[240px]">
           <div className="logo font-[1000] text-2xl px-[40px] z-50">
-            <h2>EYEGOV</h2>
+            <Link to={'/'}>
+              {' '}
+              <h2>EYEGOV</h2>
+            </Link>
           </div>
-          {/* <div className="px-5">
-            <img src={back} alt="" className="w-5 h-5" />
-          </div> */}
+          <div className="px-5">
+            <img src={close} alt="" className="w-5 h-5 cursor-pointer" />
+          </div>
         </div>
         {/* Dashboard */}
         <div className=" flex flex-col gap-5 w-fit py-4 px-[30px] bg-slate-50">
@@ -31,12 +36,14 @@ const SideBar: React.FC = () => {
             />
           </div>
           <ul className="flex flex-col gap-4">
-            <li className="menu-item flex gap-3 pt-2 px-2 cursor-pointer rounded-sm  w-[180-px] h-[30px] text-sm">
-              <span>
-                <img src={dashboard} alt="user" className="w-5 h-5" />
-              </span>
-              Dashboard
-            </li>
+            <Link to={'/dashboard'}>
+              <li className="menu-item flex gap-3 pt-2 px-2 cursor-pointer rounded-sm  w-[180-px] h-[30px] text-sm">
+                <span>
+                  <img src={dashboard} alt="user" className="w-5 h-5" />
+                </span>
+                Dashboard
+              </li>
+            </Link>
             <li className="menu-item flex gap-3 pt-2 px-2 cursor-pointer rounded-sm  w-[180px] h-[30px] text-sm">
               <span>
                 <img src={notification} alt="user" className="w-5 h-5" />

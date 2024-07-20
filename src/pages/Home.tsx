@@ -38,8 +38,6 @@ function Home({}: Props) {
           <div>
             <MiniBlog />
             <MiniBlog />
-            <MiniBlog />
-            <MiniBlog />
           </div>
         </div>
         <div>
@@ -49,8 +47,6 @@ function Home({}: Props) {
             </h2>
           </div>
           <div>
-            <MiniBlog />
-            <MiniBlog />
             <MiniBlog />
             <MiniBlog />
           </div>

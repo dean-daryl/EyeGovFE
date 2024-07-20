@@ -1,4 +1,5 @@
 import picture from '../assets/blob.jpeg';
+import dean from '../assets/dean.jpg';
 
 type Props = {};
 
@@ -21,7 +22,7 @@ function MiniBlog({}: Props) {
         </div>
         {/* Title */}
         <div>
-          <h1 className="text-xl font-[1000]">
+          <h1 className="text-xl font-[700]">
             Your most unhappy customers are your greatest source of learning.{' '}
           </h1>
         </div>
@@ -29,7 +30,7 @@ function MiniBlog({}: Props) {
         {/* Author Section */}
         <div>
           <div className="flex items-center py-1">
-            <img src={picture} alt="picture" className="w-8 h-8 rounded-full" />
+            <img src={dean} alt="picture" className="w-8 h-8 rounded-full" />
             <div className="pl-3 text-xs">
               <p className="font-[700]">John Doe</p>
               <p className="text-gray-500">Author</p>
