@@ -4,6 +4,7 @@
 }
 body {
   font-family: 'inter';
+  background-color: #f8fafc;
 }
 
 .trending {
@@ -13,4 +14,71 @@ body {
 .categoryName {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
+}
+.menu-item:hover {
+  font-weight: 500;
+  background-color: #f1f5f9;
+}
+.card {
+  width: 180px;
+  height: 254px;
+  padding: 0.8em;
+  position: relative;
+  overflow: visible;
+}
+
+.card-img {
+  background-color: #f79918;
+  height: 50%;
+  width: 100%;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.card-info {
+  padding-top: 10%;
+  cursor: pointer;
+}
+
+svg {
+  width: 20px;
+  height: 20px;
+}
+
+.card-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.text-title:hover {
+  text-decoration: italic;
+  font-weight: 800;
+}
+.text-body {
+  font-size: 0.9em;
+  padding-bottom: 10px;
+}
+
+/*Button*/
+.card-button {
+  display: flex;
+  padding: 0.3em;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.wrapper-class {
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+.editor-class {
+  background-color: lightgray;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+.toolbar-class {
+  border: 1px solid #ccc;
 }
