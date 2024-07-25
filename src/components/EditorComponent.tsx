@@ -4,7 +4,6 @@ import '../../node_modules/froala-editor/css/froala_style.min.css';
 
 import '../../node_modules/froala-editor/css/froala_editor.pkgd.min.css';
 
-import '../../node_modules/froala-editor/js/plugins.pkgd.min.js';
 
 import FroalaEditorComponent from 'react-froala-wysiwyg';
 

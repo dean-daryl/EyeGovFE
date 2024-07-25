@@ -11,7 +11,7 @@ function SearchBar({}: Props){
         placeholder="Search..."
         className="px-4 py-2 border border-gray-300 rounded-md pl-8 focus:outline-none"
       />
-      <img src={search} alt="search" className="absolute left-[255px] top-[42px] w-5 h-5" />
+      <img src={search} alt="search" className="absolute left-[110px] top-[42px] w-5 h-5" />
     </div>
   );
 };

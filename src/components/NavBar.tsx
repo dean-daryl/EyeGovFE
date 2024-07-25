@@ -2,11 +2,13 @@ import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import SocialMediaComponents from './SocialMediaComponents';
 
-type Props = {};
+type Props = {
+  onLogin: () => void;
+};
 
-function NavBar({}: Props) {
+function NavBar({onLogin}: Props) {
   return (
-    <nav className="navbar flex items-center justify-between px-[250px] py-[30px] border">
+    <nav className="navbar flex items-center justify-between px-[100px] py-[30px] border">
       <div className="search-bar">
         <SearchBar />
       </div>
@@ -18,6 +20,11 @@ function NavBar({}: Props) {
       </div>
       <div className="social-icons">
         <SocialMediaComponents />
+      </div>
+      <div className="cursor-pointer" onClick={onLogin}>
+        <button className="bg-[#f79918] text-white py-2 px-4 rounded cursor-pointer">
+          Login
+        </button>
       </div>
       <div className="burger-menu">
         <button className="text-2xl">&#9776;</button>

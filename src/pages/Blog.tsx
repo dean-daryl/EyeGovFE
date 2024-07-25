@@ -15,7 +15,7 @@ export default function Blog({}: Props) {
 
 <blockquote>
 
-	<p style="text-align: left;"><strong><sup>&quot;<span style="font-size: 12px;">We played with heart and soul, and that&#39;s what made the difference&quot;</span></sup></strong><sup><span style="font-size: 12px;">&nbsp;</span></sup></p>
+	<p style="text-align: left;"><strong id="isPasted"><sup>&quot;<span style="font-size: 12px;">We played with heart and soul, and that&#39;s what made the difference&quot;</span></sup></strong><sup><span style="font-size: 12px;">&nbsp;</span></sup></p>
 </blockquote>
 
 <p>
@@ -24,12 +24,7 @@ export default function Blog({}: Props) {
 
 <p>Mavericks&#39; star player, after their stunning victory. The game was a nail-biter, with the Mavericks edging out the Titans in the final seconds, securing a 101-99 win.</p>
 
-<p>
-	<br>
-</p>
-
-<p>
-	<br><span class="fr-img-caption fr-dib" style="width: 514px;"><span class="fr-img-wrap"><img data-fr-image-pasted="true" alt="Image of " src="https://lh3.googleusercontent.com/gg/AJIvXiv64ZP8Oze1gxj2Fjjc8D7eMHSeflQRFkbBYTaMRERsRazlmIoy3rroLtIkcTM6Km0fJiPruAyr9q1we1FGf2KTjzI0li629N-N3RV2mk2Z5J1in9uglvRSlRu-ZFvtj_QdmiK1gs2zNy0BU24omBPQxkaCSeJc_kMaXmuGjI1iSBrOxHsi" id="isPasted" class="fr-fil fr-dib"><span class="fr-inner" spellcheck="false">An Image about basketball</span></span></span>Coach Jane Smith attributed their success to rigorous training and an unyielding team spirit. <strong id="isPasted"><em>&quot;These players have shown that hard work and belief can overcome any odds,&quot;</em></strong> she remarked during the post-game press conference.</p>
+<p><img src="blob:http://localhost:5173/f34b518a-c79c-4ea8-a71e-ad9abc5ddb63" style="width: 300px;" class="fr-fic fr-dib">Coach Jane Smith attributed their success to rigorous training and an unyielding team spirit. <strong id="isPasted"><em>&quot;These players have shown that hard work and belief can overcome any odds,&quot;</em></strong> she remarked during the post-game press conference.</p>
 
 <p>
 	<br>As the season progresses, the Mavericks&#39; remarkable journey continues to inspire basketball enthusiasts everywhere. Their story is a testament to the power of perseverance and teamwork.</p>

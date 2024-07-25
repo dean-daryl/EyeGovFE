@@ -1,15 +1,22 @@
+import { useState } from 'react';
 import NavBar from '../components/NavBar';
 import FeaturedComponent from '../components/FeaturedComponent';
 import MiniBlog from '../components/MiniBlog';
 import BlogCard from '../components/BlogCard';
 import Blog from '../components/Blog';
+import { Link } from 'react-router-dom';
+import Login from '../components/Login';
+import Register from '../components/Register';
 
 type Props = {};
 
 function Home({}: Props) {
+  const [isLoginVisible, setIsLoginVisible] = useState(false);
+  const [isRegisterVisible, setIsRegisterVisible] = useState(false);
+
   return (
-    <div>
-      <NavBar />
+    <div className="">
+      <NavBar onLogin={() => setIsLoginVisible(true)} />
       <div>
         <h1 className="trending pt-10 pb-6 text-3xl text-center font-bold">
           Trending
@@ -71,11 +78,44 @@ function Home({}: Props) {
               placeholder="Enter your email"
               className="border-2 border-gray-300 p-2 rounded-md focus:outline-none"
             />
-            <button className="bg-[#f79918] text-white px-4 py-2 rounded-lg">
-              Subscribe
-            </button>
+            <Link to={'/dashboard'}>
+              <button className="bg-[#f79918] text-white px-4 py-2 rounded-lg">
+                Subscribe
+              </button>
+            </Link>
           </div>
         </div>
+      </div>
+      {/* Authorisation pop up */}
+      <div
+        className={`fixed mx-auto inset-0 flex justify-center items-center z-50 ${
+          isLoginVisible || isRegisterVisible
+            ? 'bg-black bg-opacity-25'
+            : 'hidden'
+        }`}
+      >
+        {isLoginVisible && (
+          <div className=" p-4 rounded-lg">
+            <Login
+              onSignUp={() => {
+                setIsRegisterVisible(true);
+                setIsLoginVisible(false);
+              }}
+              onClose={() => setIsLoginVisible(false)}
+            />
+          </div>
+        )}
+        {isRegisterVisible && (
+          <div>
+            <Register
+              onSignIn={() => {
+                setIsLoginVisible(true);
+                setIsRegisterVisible(false);
+              }}
+              onClose={() => setIsRegisterVisible(false)}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
