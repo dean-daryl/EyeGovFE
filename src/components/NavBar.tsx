@@ -6,7 +6,15 @@ type Props = {
   onLogin: () => void;
 };
 
-function NavBar({onLogin}: Props) {
+const checkAuth = () => {
+  if (localStorage.getItem('token')) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function NavBar({ onLogin }: Props) {
   return (
     <nav className="navbar flex items-center justify-between px-[100px] py-[30px] border">
       <div className="search-bar">
@@ -21,7 +29,10 @@ function NavBar({onLogin}: Props) {
       <div className="social-icons">
         <SocialMediaComponents />
       </div>
-      <div className="cursor-pointer" onClick={onLogin}>
+      <div
+        className={checkAuth() ? 'hidden' : ' block cursor-pointer'}
+        onClick={onLogin}
+      >
         <button className="bg-[#f79918] text-white py-2 px-4 rounded cursor-pointer">
           Login
         </button>

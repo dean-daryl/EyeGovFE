@@ -1,13 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import google from '../assets/google.svg';
 import close from '../assets/close.svg';
+import toast from 'react-hot-toast';
 
 type Props = {
   onClose: () => void;
   onSignUp: () => void;
 };
 
-function Login({ onClose,onSignUp }: Props) {
+function Login({ onClose, onSignUp }: Props) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const response = await fetch(
+      `${import.meta.env.VITE_BASE_URL}/auth/login`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: email, password }),
+      },
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      toast.success('Login successful');
+      onClose();
+
+      // Redirect to home page
+    } else {
+      // Handle login error
+      console.error('Login failed');
+    }
+  };
   return (
     <>
       <div className="form-container">
@@ -22,16 +51,30 @@ function Login({ onClose,onSignUp }: Props) {
           <p className="title">Welcome back</p>
         </div>
         <form className="form">
-          <input type="email" className="input" placeholder="Email" />
-          <input type="password" className="input" placeholder="Password" />
+          <input
+            type="email"
+            className="input"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            className="input"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <p className="page-link">
             <span className="page-link-label">Forgot Password?</span>
           </p>
-          <button className="form-btn">Log in</button>
+          <button className="form-btn" onClick={handleSubmit}>
+            Log in
+          </button>
         </form>
-          <p className="sign-up-label" onClick={onSignUp}>
-            Don't have an account?<span className="sign-up-link">Sign up</span>
-          </p>
+        <p className="sign-up-label" onClick={onSignUp}>
+          Don't have an account?<span className="sign-up-link">Sign up</span>
+        </p>
         <div className="buttons-container">
           <div className="google-login-button">
             <img src={google} alt="googleIcon" />

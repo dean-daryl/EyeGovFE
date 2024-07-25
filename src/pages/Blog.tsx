@@ -1,38 +1,28 @@
+import { useState } from 'react';
 import NavBar from '../components/NavBar';
 import blob from '../assets/blob.jpeg';
 import dean from '../assets/dean.jpg';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
+import Login from '../components/Login';
+import Register from '../components/Register';
 
 type Props = {};
 
 export default function Blog({}: Props) {
   const modal = `
-   <p style="text-align: left;">In a season filled with surprises, the underdog team, the Mavericks, has taken the basketball world by storm. Their latest game against the reigning champions, the Titans, showcased a level of skill and determination that left fans and critics in awe</p>
+   <p>Fugit, impedit, cons.</p>
 
-<p style="text-align: left;">
-	<br>
-</p>
+<p>;sfko
+	<br><img src="blob:http://localhost:5173/35941b10-4eb9-47df-b419-ee10f05f9222" style="width: 300px;" class="fr-fic fr-dib"></p>
 
-<blockquote>
-
-	<p style="text-align: left;"><strong id="isPasted"><sup>&quot;<span style="font-size: 12px;">We played with heart and soul, and that&#39;s what made the difference&quot;</span></sup></strong><sup><span style="font-size: 12px;">&nbsp;</span></sup></p>
-</blockquote>
-
-<p>
-	<br>
-</p>
-
-<p>Mavericks&#39; star player, after their stunning victory. The game was a nail-biter, with the Mavericks edging out the Titans in the final seconds, securing a 101-99 win.</p>
-
-<p><img src="blob:http://localhost:5173/f34b518a-c79c-4ea8-a71e-ad9abc5ddb63" style="width: 300px;" class="fr-fic fr-dib">Coach Jane Smith attributed their success to rigorous training and an unyielding team spirit. <strong id="isPasted"><em>&quot;These players have shown that hard work and belief can overcome any odds,&quot;</em></strong> she remarked during the post-game press conference.</p>
-
-<p>
-	<br>As the season progresses, the Mavericks&#39; remarkable journey continues to inspire basketball enthusiasts everywhere. Their story is a testament to the power of perseverance and teamwork.</p>
+<p>kfasjnkfnaksjc</p>
 `;
+  const [isLoginVisible, setIsLoginVisible] = useState(false);
+  const [isRegisterVisible, setIsRegisterVisible] = useState(false);
 
   return (
     <div>
-      <NavBar />
+      <NavBar onLogin={() => setIsLoginVisible(true)} />
       <div>
         <div className="flex flex-col items-center bg-white p-10">
           {/* Author information */}
@@ -60,6 +50,37 @@ export default function Blog({}: Props) {
             <FroalaEditorView model={modal} />
           </div>
         </div>
+      </div>
+      {/* Authorisation pop up */}
+      <div
+        className={`fixed mx-auto inset-0 flex justify-center items-center z-50 ${
+          isLoginVisible || isRegisterVisible
+            ? 'bg-black bg-opacity-25'
+            : 'hidden'
+        }`}
+      >
+        {isLoginVisible && (
+          <div className=" p-4 rounded-lg">
+            <Login
+              onSignUp={() => {
+                setIsRegisterVisible(true);
+                setIsLoginVisible(false);
+              }}
+              onClose={() => setIsLoginVisible(false)}
+            />
+          </div>
+        )}
+        {isRegisterVisible && (
+          <div>
+            <Register
+              onSignIn={() => {
+                setIsLoginVisible(true);
+                setIsRegisterVisible(false);
+              }}
+              onClose={() => setIsRegisterVisible(false)}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

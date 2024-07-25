@@ -11,8 +11,15 @@ function RichTextEditor({}: Props) {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
+    categories: [],
+    cover: '',
+    content: '',
     // Add other fields as needed
   });
+
+  const handleEditorChange = (newContent: string) => {
+    setFormData({ ...formData, content: newContent });
+  };
 
   const handleCategoryAdd = () => {
     if (newCategory && !categories.includes(newCategory)) {
@@ -34,6 +41,22 @@ function RichTextEditor({}: Props) {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setFormData({ ...formData, cover: base64String });
+      };
+      reader.readAsDataURL(file); // Convert file to base64 string
+    }
+  };
+  const handleSubmit = (e: React.FormEvent) =>{
+    e.preventDefault();
+    console.log(formData);
+  }
+
   return (
     <div>
       <div className="flex gap-[80px] bg-white">
@@ -47,7 +70,7 @@ function RichTextEditor({}: Props) {
             </h2>
           </div>
           <div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="title"
@@ -121,9 +144,31 @@ function RichTextEditor({}: Props) {
                   ))}
                 </ul>
               </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="cover"
+                  className="block pb-1 text-sm font-medium text-gray-700"
+                >
+                  Cover Photo
+                </label>
+                <input
+                  name="cover"
+                  type="file"
+                  onChange={handleFileChange}
+                  className="mt-1 px-3 py-3 block w-[50%] max-h-[80px] border border-gray-300 rounded-md focus:outline-none sm:text-sm"
+                />
+              </div>
+              <EditorComponent onEditorChange={handleEditorChange} />
+              <div className="mt-4">
+                <button
+                  type="submit"
+                  className="bg-[#f79918] px-4 py-2 text-white rounded-md my-4"
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           </div>
-          <EditorComponent />
         </div>
       </div>
     </div>
