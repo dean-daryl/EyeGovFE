@@ -1,13 +1,9 @@
 import { useState } from 'react';
-
+import FroalaEditorComponent from 'react-froala-wysiwyg';
 import '../../node_modules/froala-editor/css/froala_style.min.css';
-
 import '../../node_modules/froala-editor/css/froala_editor.pkgd.min.css';
 
-import FroalaEditorComponent from 'react-froala-wysiwyg';
-
 type Props = {
-  // Add props as needed
   onEditorChange: (content: string) => void;
 };
 
@@ -18,17 +14,35 @@ function EditorComponent({ onEditorChange }: Props) {
     setContent(newContent);
     onEditorChange(newContent);
   };
-  const handleImageUpload = (files: FileList, editor: any) => {
 
+  const handleImageUpload = async (files: FileList, editor: any) => {
     const file = files[0];
-    const reader = new FileReader();
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append(
+      'upload_preset',
+      import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET,
+    );
 
-    reader.onloadend = () => {
-      const base64String = reader.result as string;
-      editor.image.insert(base64String, null, null, editor.image.get());
-    };
-    reader.readAsDataURL(file);
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+        }/image/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        },
+      );
+      const data = await response.json();
+      const imageUrl = data.secure_url;
+      console.log('Image URL:', imageUrl);
+      editor.image.insert(imageUrl, null, null, editor.image.get());
+    } catch (error) {
+      console.error('Error uploading image to Cloudinary:', error);
+    }
   };
+
   return (
     <div className="editor w-[80%]">
       <FroalaEditorComponent
