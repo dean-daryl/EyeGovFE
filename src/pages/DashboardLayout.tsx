@@ -2,10 +2,47 @@ import SideBar from '../components/SideBar';
 import search from '../assets/search.svg';
 import NewArticleCard from '../components/NewArticleCard';
 import ArticleCard from '../components/ArticleCard';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 type Props = {};
 
 function DashboardLayout({}: Props) {
+  type Article = {
+    id: string;
+    title: string;
+    description: string;
+    cover: string;
+    // Add other fields as needed
+  };
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/articles`,
+          {
+            method: 'GET',
+          },
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data: Article[] = await response.json();
+        setArticles(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
   return (
     <div className="flex">
       <div className="sticky top-0 h-[100vh] overflow-y-auto">
@@ -36,11 +73,15 @@ function DashboardLayout({}: Props) {
         </div>
         {/* Main content */}
         <div className="flex flex-wrap gap-5 p-5 border-gray-100 ml-3 mr-3 mb-0 bg-white h-[80vh]">
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
+          {articles.map((article) => (
+            <ArticleCard
+              key={article.id}
+              id={article.id}
+              title={article.title}
+              description={article.description}
+              cover={article.cover}
+            />
+          ))}
         </div>
       </div>
     </div>

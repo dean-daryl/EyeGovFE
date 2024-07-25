@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import FeaturedComponent from '../components/FeaturedComponent';
 import MiniBlog from '../components/MiniBlog';
@@ -9,11 +9,49 @@ import Login from '../components/Login';
 import Register from '../components/Register';
 
 type Props = {};
-
+type Article = {
+  id: string;
+  title: string;
+  description: string;
+  cover: string;
+  content: string;
+  categories: string[];
+  createdAt: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+};
 function Home({}: Props) {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [isRegisterVisible, setIsRegisterVisible] = useState(false);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/articles`,
+          {
+            method: 'GET',
+          },
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data: Article[] = await response.json();
+        setArticles(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
   return (
     <div className="">
       <NavBar onLogin={() => setIsLoginVisible(true)} />
@@ -22,16 +60,31 @@ function Home({}: Props) {
           Trending
         </h1>
       </div>
-      <FeaturedComponent />
+      <FeaturedComponent
+        key={articles[0]?.id}
+        id={articles[0]?.id}
+        title={articles[0]?.title}
+        description={articles[0]?.description}
+        cover={articles[0]?.cover}
+        author={articles[0]?.author}
+        categories={articles[0]?.categories}
+        createdAt={articles[0]?.createdAt}
+      />
       {/* blog Cards */}
       <div className="px-[100px] flex justify-center items-center">
         <div className="grid grid-cols-3 gap-4">
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
+          {articles.map((article) => (
+            <BlogCard
+              key={article.id}
+              id={article.id}
+              title={article.title}
+              description={article.description}
+              cover={article.cover}
+              author={article.author}
+              categories={article.categories}
+              createdAt={article.createdAt}
+            />
+          ))}
         </div>
       </div>
       {/* blogs by category */}

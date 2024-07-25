@@ -1,22 +1,77 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
-import blob from '../assets/blob.jpeg';
 import dean from '../assets/dean.jpg';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 import Login from '../components/Login';
 import Register from '../components/Register';
-
+import { useParams } from 'react-router-dom';
 type Props = {};
-
+type Article = {
+  id: string;
+  title: string;
+  description: string;
+  cover: string;
+  content: string;
+  categories: string[];
+  createdAt: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+};
 export default function Blog({}: Props) {
-  const modal = `
-   <p>Fugit, impedit, cons.</p>
+  const formatDateToFull = (dateString: string | undefined): string => {
+    if (dateString === undefined) return '';
+    const date = new Date(dateString);
 
-<p>;sfko
-	<br><img src="blob:http://localhost:5173/35941b10-4eb9-47df-b419-ee10f05f9222" style="width: 300px;" class="fr-fic fr-dib"></p>
+    // List of month names
+    const monthNames: string[] = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
 
-<p>kfasjnkfnaksjc</p>
-`;
+    // Extract the day, month, and year
+    const day = date.getDate();
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${month} ${day}, ${year}`;
+  };
+  const id = useParams<{ id: string }>().id;
+  console.log(id);
+  const [articles, setArticle] = useState<Article>();
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/articles/${id}`,
+          {
+            method: 'GET',
+          },
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data: Article = await response.json();
+        setArticle(data);
+      } catch (error) {
+        console.error('Error fetching article:', error);
+      }
+    };
+
+    fetchArticle();
+  }, []);
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [isRegisterVisible, setIsRegisterVisible] = useState(false);
 
@@ -33,21 +88,26 @@ export default function Blog({}: Props) {
               className="rounded-full bg-auto w-24 h-24 mx-auto mb-4"
             />
             <h3 className="text-lg font-semibold">Sergy Campbell</h3>
-            <p className="text-gray-600">JULY 2, 2020</p>
+            <p className="text-gray-600">
+              {formatDateToFull(articles?.createdAt)}
+            </p>
           </div>
           {/* ARTICLE */}
           <h1 className="text-4xl font-bold mt-6 w-[68%] text-center">
-            Your most unhappy customers are your greatest source of learning.
+            {articles?.title}
           </h1>
           <p className="text-lg text-gray-600 mt-4 w-[50%] text-center">
-            Far far away, behind the word mountains, far from the countries
-            Vokalia and Consonantia, there live the blind texts.
+            {articles?.description}
           </p>
           <div className="mt-6">
-            <img src={blob} alt="Article" className="w-[696px] h-[447px]" />
+            <img
+              src={articles?.cover}
+              alt="Article"
+              className="w-[696px] h-[447px]"
+            />
           </div>
           <div className="w-[65%] mt-10 text-gray-600 text-lg">
-            <FroalaEditorView model={modal} />
+            <FroalaEditorView model={articles?.content} />
           </div>
         </div>
       </div>

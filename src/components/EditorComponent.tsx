@@ -2,16 +2,17 @@ import { useState } from 'react';
 import FroalaEditorComponent from 'react-froala-wysiwyg';
 import '../../node_modules/froala-editor/css/froala_style.min.css';
 import '../../node_modules/froala-editor/css/froala_editor.pkgd.min.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../store/store';
 
 type Props = {
   onEditorChange: (content: string) => void;
 };
 
 function EditorComponent({ onEditorChange }: Props) {
-  const [content, setContent] = useState('');
+  const { content } = useSelector((state: RootState) => state.singleArticle);
 
   const handleModelChange = (newContent: string) => {
-    setContent(newContent);
     onEditorChange(newContent);
   };
 

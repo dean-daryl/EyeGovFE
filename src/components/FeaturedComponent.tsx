@@ -1,37 +1,61 @@
 import picture from '../assets/blob.jpeg';
 
-type Props = {};
+type Props = {
+  id: string;
+  title: string;
+  description: string;
+  cover: string;
+  categories: string[];
+  createdAt: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+};
 
-function FeaturedComponent({}: Props) {
+function FeaturedComponent({
+  id,
+  title,
+  description,
+  cover,
+  categories,
+  createdAt,
+  author,
+}: Props) {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+
+    // Extract the day, month, and year
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear()).slice(-2); // Get last 2 digits of the year
+
+    return `${day}/${month}/${year}`;
+  };
   return (
     <div className="w-[100%] px-[100px] flex gap-5 py-[50px]">
       <div>
         <img
-          src={picture}
+          src={cover}
           alt="picture"
-          className="w-[650px] h-[385px] border-red-100 rounded-md"
+          className="w-[650px] h-[385px] border-red-100 rounded-md object-cover"
         />
       </div>
       <div className="flex justify-center flex-col px-3 ">
         {/* CATEGORY AND DATE */}
         <div className="flex">
-          <p className="font-bold "> Business, Travel</p>
+          <p className="font-bold ">
+            {categories?.[0]}, {categories?.[1]}
+          </p>
           <p className="text-gray-500">-</p>
-          <p className="text-gray-500"> July 2, 2020</p>
+          <p className="text-gray-500">{formatDate(createdAt)}</p>
         </div>
         {/* Title */}
         <div>
-          <h1 className="text-5xl font-bold py-5">
-            Your most unhappy customers are your greatest source of learning.{' '}
-          </h1>
+          <h1 className="text-5xl font-bold py-5">{title}</h1>
         </div>
         {/* Description */}
-        <div className="text-gray-500">
-          Far far away, behind the word mountains, far from the countries
-          Vokalia and Consonantia, there live the blind texts. Separated they
-          live in Bookmarksgrove right at the coast of the Semantics, a large
-          language ocean.
-        </div>
+        <div className="text-gray-500">{description}</div>
         {/* Author Section */}
         <div>
           <div className="flex items-center py-5">

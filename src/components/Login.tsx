@@ -28,12 +28,12 @@ function Login({ onClose, onSignUp }: Props) {
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem('token', data.token);
+      localStorage.setItem('user_id', data.user.id);
       toast.success('Login successful');
       onClose();
-
-      // Redirect to home page
+      window.location.href = '/dashboard';
     } else {
-      // Handle login error
+      toast.error('Whoops! Something went wrong😯');
       console.error('Login failed');
     }
   };
