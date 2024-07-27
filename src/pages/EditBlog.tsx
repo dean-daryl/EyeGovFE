@@ -1,6 +1,6 @@
-import React from 'react';
-import {useDispatch } from 'react-redux';
-import { AppDispatch, useTypedSelector } from '../store/store';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../store/store';
 import {
   setTitle,
   setDescription,
@@ -14,13 +14,62 @@ import EditorComponent from '../components/EditorComponent';
 import SideBar from '../components/SideBar';
 import close from '../assets/close.svg';
 import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
 
-function RichTextEditor() {
-  const [newCategory, setNewCategory] = React.useState('');
+type Article = {
+  id: string;
+  title: string;
+  description: string;
+  cover: string;
+  content: string;
+  categories: string[];
+  createdAt: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+};
+
+function EditBlog() {
+  const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
-  const { title, description, categories, cover, content } = useTypedSelector(
-    (state) => state.article,
+
+  // Accessing values from Redux state
+  const { title, description, categories, cover, content } = useSelector(
+    (state: RootState) => state.article,
   );
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/articles/${id}`,
+          {
+            method: 'GET',
+          },
+        );
+        if (response.ok) {
+          const result: Article = await response.json();
+          // Dispatch actions to set the Redux state with the fetched article data
+          dispatch(setTitle(result.title));
+          dispatch(setDescription(result.description));
+          dispatch(setCover(result.cover));
+          dispatch(setContent(result.content));
+          result.categories.forEach((category) =>
+            dispatch(addCategory(category)),
+          );
+        } else {
+        }
+      } catch (error) {
+        console.error('Error fetching article:', error);
+      }
+    };
+    if (id) {
+      fetchArticle();
+    }
+  }, [id, dispatch]);
+
+  const [newCategory, setNewCategory] = React.useState('');
 
   const handleEditorChange = (newContent: string) => {
     dispatch(setContent(newContent));
@@ -29,6 +78,7 @@ function RichTextEditor() {
   const handleCategoryAdd = (newCategory: string) => {
     if (newCategory) {
       dispatch(addCategory(newCategory));
+      setNewCategory('');
     }
   };
 
@@ -77,18 +127,18 @@ function RichTextEditor() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/articles`,
+        `${import.meta.env.VITE_BASE_URL}/articles/${id}`,
         {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             title,
             description,
-            categories,
             cover,
             content,
+            categories,
             userId: localStorage.getItem('user_id'),
           }),
         },
@@ -96,19 +146,16 @@ function RichTextEditor() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log('Article created successfully:', result);
-        toast.success('Article created successfully');
+        console.log('Article Updated successfully:', result);
+        toast.success('Article Updated successfully');
         window.location.href = '/dashboard';
-        dispatch(resetForm()); // Reset form on success
-        // Handle success, e.g., show a success message or redirect
+        dispatch(resetForm());
       } else {
         console.error('Error creating article:', response.statusText);
         toast.error(response.statusText);
-        // Handle error, e.g., show an error message
       }
     } catch (error) {
       console.error('Error creating article:', error);
-      // Handle error, e.g., show an error message
     }
   };
 
@@ -121,7 +168,7 @@ function RichTextEditor() {
         <div className="flex flex-col pt-[100px] overflow-y-auto bg-white w-[75%]">
           <div className="pb-10">
             <h2 className="text-3xl cursor-pointer underline font-bold">
-              Add Article
+              Edit Article
             </h2>
           </div>
           <div>
@@ -229,4 +276,4 @@ function RichTextEditor() {
   );
 }
 
-export default RichTextEditor;
+export default EditBlog;

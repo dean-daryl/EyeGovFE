@@ -1,4 +1,3 @@
-import React from 'react';
 import google from '../assets/google.svg';
 import close from '../assets/close.svg';
 

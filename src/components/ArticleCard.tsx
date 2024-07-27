@@ -3,31 +3,45 @@ import bin from '../assets/bin.svg';
 import edit from '../assets/edit.svg';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store/store';
+import { removeArticle } from '../slices/articlesReducer';
+import { formatDate } from '../utils/formatDate';
 
 type Props = {
   id: string;
   title: string;
   description: string;
   cover: string;
+  createdAt: string;
 };
 
-const truncateText = (text: string, maxLength: number): string => {
-  if (text.length > maxLength) {
-    return text.substring(0, maxLength) + '...';
-  }
-  return text;
-};
-const handleDelete = (id: string) => {
-  fetch(`${import.meta.env.VITE_BASE_URL}/articles/${id}`, {
-    method: 'DELETE',
-  }).then((response) => {
-    if (response.ok) {
-      toast.success('Article deleted successfully');
+const ArticleCard: React.FC<Props> = ({
+  id,
+  title,
+  description,
+  cover,
+  createdAt,
+}) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const truncateText = (text: string, maxLength: number): string => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
     }
-  });
-};
+    return text;
+  };
 
-const ArticleCard: React.FC<Props> = ({ id, title, description, cover }) => {
+  const handleDelete = (id: string) => {
+    fetch(`${import.meta.env.VITE_BASE_URL}/articles/${id}`, {
+      method: 'DELETE',
+    }).then((response) => {
+      if (response.ok) {
+        toast.success('Article deleted successfully');
+        dispatch(removeArticle(id));
+      }
+    });
+  };
+
   return (
     <div className="card border border-gray-200 m-4">
       <Link to={`/${id}`}>
@@ -42,11 +56,13 @@ const ArticleCard: React.FC<Props> = ({ id, title, description, cover }) => {
         </div>
       </Link>
       <div className="card-footer">
-        <span className="text-sm">7/19/2024</span>
+        <span className="text-sm">{formatDate(createdAt)}</span>
         <div className="flex gap-2">
-          <div className="card-button">
-            <img src={edit} alt="edit" className="w-5 h-5" />
-          </div>
+          <Link to={`/edit/${id}`}>
+            <div className="card-button">
+              <img src={edit} alt="edit" className="w-5 h-5" />
+            </div>
+          </Link>
           <div className="card-button" onClick={() => handleDelete(id)}>
             <img src={bin} alt="bin" className="w-5 h-5" />
           </div>

@@ -2,22 +2,23 @@ import SideBar from '../components/SideBar';
 import search from '../assets/search.svg';
 import NewArticleCard from '../components/NewArticleCard';
 import ArticleCard from '../components/ArticleCard';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, useTypedSelector } from '../store/store';
+import { setArticles } from '../slices/articlesReducer';
+import toast from 'react-hot-toast';
 
 type Props = {};
 
 function DashboardLayout({}: Props) {
+  const dispatch = useDispatch<AppDispatch>();
+  const { articles } = useTypedSelector((state) => state.articles);
   type Article = {
     id: string;
     title: string;
     description: string;
     cover: string;
-    // Add other fields as needed
   };
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -32,11 +33,9 @@ function DashboardLayout({}: Props) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data: Article[] = await response.json();
-        setArticles(data);
+        dispatch(setArticles(data));
       } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+        toast.error('Failed to fetch articles');
       }
     };
 
@@ -80,6 +79,7 @@ function DashboardLayout({}: Props) {
               title={article.title}
               description={article.description}
               cover={article.cover}
+              createdAt={article.createdAt}
             />
           ))}
         </div>

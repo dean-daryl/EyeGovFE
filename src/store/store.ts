@@ -1,12 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import singleArticleReducer from '../slices/singleArticleReducer';
+import { articleReducer } from '../slices/articleReducer';
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { articlesReducer } from '../slices/articlesReducer';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    singleArticle: singleArticleReducer,
+    article: articleReducer,
+    articles: articlesReducer,
   },
 });
 
-export default store;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;

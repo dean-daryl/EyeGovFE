@@ -6,6 +6,7 @@ import DashboardLayout from './pages/DashboardLayout';
 import RichTextEditor from './pages/RichTextEditor';
 import Blog from './pages/Blog';
 import { Toaster } from 'react-hot-toast';
+import EditBlog from './pages/EditBlog';
 
 const App = () => {
   return (
@@ -16,7 +17,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<DashboardLayout />} />
           <Route path="/article" element={<RichTextEditor />} />
-          <Route path="/:id" element={<Blog />} />
+          <Route path="/:id"  element={<Blog />}  />
+          <Route path="/edit/:id" element={<EditBlog />} />
         </Routes>
       </BrowserRouter>
     </>

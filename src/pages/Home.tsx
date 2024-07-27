@@ -3,10 +3,10 @@ import NavBar from '../components/NavBar';
 import FeaturedComponent from '../components/FeaturedComponent';
 import MiniBlog from '../components/MiniBlog';
 import BlogCard from '../components/BlogCard';
-import Blog from '../components/Blog';
 import { Link } from 'react-router-dom';
 import Login from '../components/Login';
 import Register from '../components/Register';
+import toast from 'react-hot-toast';
 
 type Props = {};
 type Article = {
@@ -26,8 +26,8 @@ function Home({}: Props) {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [isRegisterVisible, setIsRegisterVisible] = useState(false);
   const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [sportsArticles, setSportsArticles] = useState<Article[]>([]);
+  const [businessArticles, setBusinessArticles] = useState<Article[]>([]);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -44,13 +44,46 @@ function Home({}: Props) {
         const data: Article[] = await response.json();
         setArticles(data);
       } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+        toast.error('Error fetching articles');
       }
     };
-
+    const fetchSportArticles = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/articles/category/Sports`,
+          {
+            method: 'GET',
+          },
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data: Article[] = await response.json();
+        setSportsArticles(data);
+      } catch (error) {
+        toast.error("Error fetching articles");
+      }
+    };
+    const fetchBusinessArticles = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/articles/category/Business`,
+          {
+            method: 'GET',
+          },
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data: Article[] = await response.json();
+        setBusinessArticles(data);
+      } catch (error) {
+        toast.error('Error fetching articles');
+      } 
+    };
     fetchArticles();
+    fetchSportArticles();
+    fetchBusinessArticles();
   }, []);
   return (
     <div className="">
@@ -96,8 +129,20 @@ function Home({}: Props) {
             </h2>
           </div>
           <div>
-            <MiniBlog />
-            <MiniBlog />
+            {sportsArticles.map((article) => (
+              <MiniBlog
+                key={article?.id}
+                id={article?.id}
+                title={article?.title}
+                description={article?.description}
+                cover={article?.cover}
+                author={article?.author}
+                categories={article?.categories}
+                createdAt={article?.createdAt}
+              />
+            ))}
+            {/* <MiniBlog />
+            <MiniBlog /> */}
           </div>
         </div>
         <div>
@@ -107,16 +152,28 @@ function Home({}: Props) {
             </h2>
           </div>
           <div>
-            <MiniBlog />
-            <MiniBlog />
+            <div>
+              {businessArticles.map((article) => (
+                <MiniBlog
+                  key={article?.id}
+                  id={article?.id}
+                  title={article?.title}
+                  description={article?.description}
+                  cover={article?.cover}
+                  author={article?.author}
+                  categories={article?.categories}
+                  createdAt={article?.createdAt}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Most Popular blogs */}
-      <div className="flex justify-center items-center">
+      {/* <div className="flex justify-center items-center">
         <Blog />
-      </div>
+      </div> */}
       {/*Subscribe to our news letter */}
       <div className="flex justify-center items-center py-10 bg-slate-200">
         <div className="flex flex-col items-center">
