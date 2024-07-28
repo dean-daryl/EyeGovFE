@@ -106,8 +106,8 @@ export default function Blog({}: Props) {
               className="w-[696px] h-[447px]"
             />
           </div>
-          <div className="w-[65%] mt-10 text-gray-600 text-lg">
-            <FroalaEditorView model={articles?.content} />
+          <div className="w-[65%] mt-10  text-sm">
+            <FroalaEditorView  model={articles?.content} />
           </div>
         </div>
       </div>

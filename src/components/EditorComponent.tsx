@@ -52,6 +52,9 @@ function EditorComponent({ onEditorChange }: Props) {
         config={{
           imageUpload: true,
           imageDefaultAlign: 'left',
+          fontFamily: {
+            Inter: 'Inter',
+          },
           placeholderText: 'Edit Your Content Here!',
           imageAllowedTypes: ['jpeg', 'jpg', 'png'],
           events: {
