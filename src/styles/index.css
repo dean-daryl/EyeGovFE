@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#root {
+
+  font-family: 'inter';
+  background-color: #f8fafc;
+  width: 100%;
+  
+}

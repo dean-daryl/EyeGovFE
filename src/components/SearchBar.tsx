@@ -9,9 +9,8 @@ function SearchBar({}: Props){
       <input
         type="text"
         placeholder="Search..."
-        className="px-4 py-2 border border-gray-300 rounded-md pl-8 focus:outline-none"
+        className="w-[100px] text-sm pl-2 md:w-[200px] md:px-4 py-2 border border-gray-300 rounded-md md:pl-8 focus:outline-none"
       />
-      <img src={search} alt="search" className="absolute left-[110px] top-[42px] w-5 h-5" />
     </div>
   );
 };

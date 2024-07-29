@@ -16,17 +16,17 @@ const checkAuth = () => {
 
 function NavBar({ onLogin }: Props) {
   return (
-    <nav className="navbar flex items-center justify-between px-[100px] py-[30px] border">
+    <nav className="navbar flex items-center justify-between px-[5px] md:px-[100px] py-[30px] border">
       <div className="search-bar">
         <SearchBar />
       </div>
-      <div className="logo font-[1000] text-2xl px-[40px] z-50">
+      <div className="logo font-[1000] text-lg md:text-2xl md:px-[40px] z-50">
         <Link to={'/'}>
           {' '}
           <h2>EYEGOV</h2>
         </Link>
       </div>
-      <div className="social-icons">
+      <div className="hidden md:block">
         <SocialMediaComponents />
       </div>
       <div

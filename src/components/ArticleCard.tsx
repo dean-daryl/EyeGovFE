@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store/store';
 import { removeArticle } from '../slices/articlesReducer';
 import { formatDate } from '../utils/formatDate';
+import { truncateText } from '../utils/truncateText';
 
 type Props = {
   id: string;
@@ -24,12 +25,7 @@ const ArticleCard: React.FC<Props> = ({
   createdAt,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const truncateText = (text: string, maxLength: number): string => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
-    }
-    return text;
-  };
+ 
 
   const handleDelete = (id: string) => {
     fetch(`${import.meta.env.VITE_BASE_URL}/articles/${id}`, {

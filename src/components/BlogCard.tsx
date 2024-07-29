@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import picture from '../assets/blob.jpeg';
+import picture from '../assets/avatar.svg';
+import { truncateText } from '../utils/truncateText';
 
 type Props = {
   id: string;
@@ -9,7 +10,7 @@ type Props = {
   categories: string[];
   createdAt: string;
   author: {
-    name: string;
+    fullName: string;
     avatar: string;
   };
 };
@@ -37,15 +38,15 @@ function BlogCard({
   return (
     <>
       <Link to={`${id}`}>
-        <div className="w-[80%] gap-5 py-[50px]">
+        <div className="flex flex-col items-center h-[600px] gap-5">
           <div>
             <img
               src={cover}
               alt="picture"
-              className="w-[399px] h-[256px] border-red-100 rounded-md object-cover"
+              className="w-[399px] h-[256px] rounded-md object-cover"
             />
           </div>
-          <div className="justify-center  px-3 ">
+          <div className="justify-center px-3 ">
             {/* CATEGORY AND DATE */}
             <div className="flex text-sm py-2">
               <p className="font-bold">
@@ -56,10 +57,14 @@ function BlogCard({
             </div>
             {/* Title */}
             <div>
-              <h1 className="text-md font-[800] py-1">{title}</h1>
+              <h1 className="text-md text-sm mb-2 font-[800] md:text-md  md:py-1 h-[60px]">
+                {truncateText(title, 60)}
+              </h1>
             </div>
             {/* Description */}
-            <div className="text-gray-500 text-sm">{description}</div>
+            <div className="text-[13px] text-gray-500 md:text-sm h-[100px] ">
+              {truncateText(description, 150)}
+            </div>
             {/* Author Section */}
             <div>
               <div className="flex items-center py-5">
@@ -69,7 +74,7 @@ function BlogCard({
                   className="w-8 h-8 rounded-full"
                 />
                 <div className="pl-3 text-sm">
-                  <p className="font-[700]">{author.name}</p>
+                  <p className="font-[700]">{author.fullName}</p>
                   <p className="text-gray-500">Author</p>
                 </div>
               </div>
