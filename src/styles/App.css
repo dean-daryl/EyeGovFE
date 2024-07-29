@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'inter';
-  src: url(src/assets/inter-latin-wght-normal.BgVq2Tq4.woff2) format('woff2');
+  src: url(../assets/inter-latin-wght-normal.BgVq2Tq4.woff2) format('woff2');
 }
 #root {
   overflow: hidden;
