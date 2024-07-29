@@ -1,4 +1,3 @@
-import search from '../assets/search.svg';
 
 type Props = {};
 

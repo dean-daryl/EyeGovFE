@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
-import dean from '../assets/dean.jpg';
 import avatar from '../assets/avatar.svg';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 import Login from '../components/Login';
