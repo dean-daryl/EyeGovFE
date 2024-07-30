@@ -9,6 +9,7 @@ export interface Article {
   content: string;
   categories: string[];
   createdAt: string;
+  applause: number;
 }
 
 export interface State {
@@ -27,6 +28,7 @@ const slice = createSlice({
     content: '',
     categories: [],
     createdAt: '',
+    applause: 0,
   } as Article,
   reducers: {
     setTitle(state: Article, action: PayloadAction<string>) {
@@ -40,6 +42,9 @@ const slice = createSlice({
     },
     setContent(state: Article, action: PayloadAction<string>) {
       state.content = action.payload;
+    },
+    applaudArticle(state: Article) {
+    state.applause += 1;
     },
     addCategory(state: Article, action: PayloadAction<string>) {
       state.categories.push(action.payload);
@@ -64,6 +69,7 @@ export const {
   setDescription,
   setCover,
   setContent,
+  applaudArticle,
   addCategory,
   removeCategory,
   resetForm,

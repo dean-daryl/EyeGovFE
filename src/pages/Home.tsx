@@ -152,8 +152,7 @@ function Home({}: Props) {
                     createdAt={article?.createdAt}
                   />
                 ))}
-                {/* <MiniBlog />
-            <MiniBlog /> */}
+               
               </div>
             </div>
             <div className="px-10 md:w-[50%]">

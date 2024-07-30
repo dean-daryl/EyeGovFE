@@ -57,7 +57,7 @@ function BlogCard({
             </div>
             {/* Title */}
             <div>
-              <h1 className="text-md text-sm mb-2 font-[800] md:text-md  md:py-1 h-[60px]">
+              <h1 className="text-md text-sm mb-2 font-[800] md:text-md  md:py-1 h-[40px]">
                 {truncateText(title, 60)}
               </h1>
             </div>
@@ -67,7 +67,7 @@ function BlogCard({
             </div>
             {/* Author Section */}
             <div>
-              <div className="flex items-center py-5">
+              <div className="flex items-center">
                 <img
                   src={picture}
                   alt="picture"
